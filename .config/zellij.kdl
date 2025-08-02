@@ -1,0 +1,23 @@
+// Use the Catppuccin theme to match Kitty
+theme "catppuccin-mocha"
+
+// A cleaner UI without extra pane separators
+simplified_ui true
+
+// Default layout for sessions started without a specific layout
+default_layout "compact"
+
+// Disable Zellij's mouse mode to allow native terminal text selection
+mouse_mode false
+copy_on_select false
+
+// Basic vim-like navigation
+keybinds {
+    normal {
+        // Use Alt + hjkl to move between panes
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+    }
+}

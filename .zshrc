@@ -98,7 +98,16 @@ lf () {
 }
 
 # ------------------------------------------------------------------------------
+# AUTO-START ZELLIJ
+# ------------------------------------------------------------------------------
+# Automatically start Zellij on shell startup if not already in a session.
+# It attaches to a session named "main" or creates it if it doesn't exist.
+if [[ -z "$ZELLIJ" && -z "$TMUX" && "$TERM" != "linux" && -n "$PS1" ]]; then
+  zellij attach main --create
+fi
+
+# ------------------------------------------------------------------------------
 # FINALIZATION
 # ------------------------------------------------------------------------------
 # Display system info on startup
-fastfetch --off --color_blocks --ascii_distro Arch
+fastfetch -s ascii

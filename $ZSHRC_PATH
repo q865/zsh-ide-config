@@ -1,0 +1,13 @@
+
+# Aliases for Zellij IDE setup
+# zl: Start Zellij with the development layout
+alias zl="zellij --layout dev-setup"
+# za: Attach to the last Zellij session
+alias za="zellij attach"
+# zs: List all Zellij sessions
+alias zs="zellij list-sessions"
+
+# Use eza instead of ls for pretty, icon-rich listings
+alias ls="eza --icons --group-directories-first"
+alias la="eza -a --icons --group-directories-first"
+alias ll="eza -l --icons --group-directories-first"
