@@ -73,7 +73,7 @@ layouts {
 keybinds {
     unbind "Ctrl t"
     // --- Управление сессиями (через плагин) ---
-    bind "Ctrl s" {
+    bind "Ctrl s" "Ctrl ы" {
         launch_or_focus_plugin "session-manager" {
             floating true
         }
@@ -81,18 +81,18 @@ keybinds {
 
     // --- Управление панелями ---
     // Перемещение между панелями (как у вас и было)
-    bind "Alt h" { MoveFocus "Left"; }
-    bind "Alt j" { MoveFocus "Down"; }
-    bind "Alt k" { MoveFocus "Up"; }
-    bind "Alt l" { MoveFocus "Right"; }
+    bind "Alt h" "Alt р" { MoveFocus "Left"; }
+    bind "Alt j" "Alt о" { MoveFocus "Down"; }
+    bind "Alt k" "Alt л" { MoveFocus "Up"; }
+    bind "Alt l" "Alt д" { MoveFocus "Right"; }
 
     // Создание новой панели
-    bind "Alt n" { NewPane; }
+    bind "Alt n" "Alt т" { NewPane; }
     // Закрытие активной панели
-    bind "Alt w" { CloseFocus; }
+    bind "Alt w" "Alt ц" { CloseFocus; }
 
     // Переименование панели для лучшей организации
-    bind "Alt r" {
+    bind "Alt r" "Alt к" {
         SwitchToMode "RenamePane"
         pane_input_prompt "Rename Pane: "
     }
@@ -100,16 +100,16 @@ keybinds {
 
     // --- Управление вкладками ---
     // Создание новой вкладки
-    bind "Alt t" { NewTab; }
+    bind "Alt t" "Alt е" { NewTab; }
     // Закрытие активной вкладки
-    bind "Alt q" { CloseTab; }
+    bind "Alt q" "Alt й" { CloseTab; }
     // Переключение на предыдущую вкладку
-    bind "Alt [" { GoToPreviousTab; }
+    bind "Alt [" "Alt х" { GoToPreviousTab; }
     // Переключение на следующую вкладку
-    bind "Alt ]" { GoToNextTab; }
+    bind "Alt ]" "Alt ъ" { GoToNextTab; }
 
     // Переименование вкладки
-    bind "Alt T" {
+    bind "Alt T" "Alt Е" {
         SwitchToMode "RenameTab"
         tab_input_prompt "Rename Tab: "
     }
@@ -117,15 +117,15 @@ keybinds {
 
     // --- Другие полезные действия ---
     // Развернуть панель на весь экран
-    bind "Alt e" { ToggleFocusFullscreen; }
+    bind "Alt e" "Alt у" { ToggleFocusFullscreen; }
     // Сделать панель "плавающей"
-    bind "Alt f" { ToggleFloatingPanes; }
+    bind "Alt f" "Alt а" { ToggleFloatingPanes; }
 
     // --- Режимы ---
     // Вход в режим изменения размера
-    bind "Alt R" { SwitchToMode "Resize"; }
+    bind "Alt R" "Alt К" { SwitchToMode "Resize"; }
     // Вход в режим прокрутки
-    bind "Alt S" { SwitchToMode "Scroll"; }
+    bind "Alt S" "Alt Ы" { SwitchToMode "Scroll"; }
 }
 
 // --- Режимы ---
@@ -134,21 +134,21 @@ keybinds {
 mode_keybinds {
     // Режим изменения размера
     resize "normal" {
-        bind "h" "Left" { Resize "Increase Left"; }
-        bind "j" "Down" { Resize "Increase Down"; }
-        bind "k" "Up" { Resize "Increase Up"; }
-        bind "l" "Right" { Resize "Increase Right"; }
-        bind "H" { Resize "Decrease Left"; }
-        bind "J" { Resize "Decrease Down"; }
-        bind "K" { Resize "Decrease Up"; }
-        bind "L" { Resize "Decrease Right"; }
+        bind "h" "р" "Left" { Resize "Increase Left"; }
+        bind "j" "о" "Down" { Resize "Increase Down"; }
+        bind "k" "л" "Up" { Resize "Increase Up"; }
+        bind "l" "д" "Right" { Resize "Increase Right"; }
+        bind "H" "Р" { Resize "Decrease Left"; }
+        bind "J" "О" { Resize "Decrease Down"; }
+        bind "K" "Л" { Resize "Decrease Up"; }
+        bind "L" "Д" { Resize "Decrease Right"; }
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
 
     // Режим прокрутки
     scroll "normal" {
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
+        bind "j" "о" "Down" { ScrollDown; }
+        bind "k" "л" "Up" { ScrollUp; }
         bind "PageDown" { PageScrollDown; }
         bind "PageUp" { PageScrollUp; }
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
