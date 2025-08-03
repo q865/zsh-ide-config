@@ -45,6 +45,7 @@ PACKAGES=(
     lazygit
     direnv
     zellij
+    lf
 )
 yay -S --needed --noconfirm "${PACKAGES[@]}"
 
@@ -103,6 +104,9 @@ backup_and_link() {
 
 backup_and_link "$CONFIG_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$CONFIG_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
+backup_and_link "$CONFIG_DIR/.config/zellij.kdl" "$HOME/.config/zellij/config.kdl"
+backup_and_link "$CONFIG_DIR/.config/lf/lfrc" "$HOME/.config/lf/lfrc"
+backup_and_link "$CONFIG_DIR/.config/lf/pv.sh" "$HOME/.config/lf/pv.sh"
 
 # 6. Создание файла для секретов
 if [ ! -f "$HOME/.zsh_secrets" ]; then

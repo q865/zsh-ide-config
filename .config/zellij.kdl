@@ -116,6 +116,14 @@ keybinds {
 
 
     // --- Другие полезные действия ---
+    // Открыть файловый менеджер lf в плавающем окне
+    bind "Alt o" "Alt щ" {
+        launch_or_focus_plugin "file://~/.config/zellij/plugins/zjstatus.wasm" {
+            floating true
+            command "lf"
+        }
+    }
+
     // Развернуть панель на весь экран
     bind "Alt e" "Alt у" { ToggleFocusFullscreen; }
     // Сделать панель "плавающей"
