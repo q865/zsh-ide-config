@@ -77,6 +77,20 @@ alias ...="cd ../.."
 alias vim='nvim'
 alias vi='nvim'
 alias lg='lazygit'
+alias cat='bat --paging=never'
+
+# Git
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add --all'
+alias gc='git commit -m'
+alias gca='git commit -a -m'
+alias gp='git push'
+alias gpl='git pull'
+alias gco='git checkout'
+alias gb='git branch'
+alias glg='git log --graph --oneline --decorate --all'
 
 # Zellij
 alias zl="zellij --layout dev-setup" # запуск с кастомным layout
