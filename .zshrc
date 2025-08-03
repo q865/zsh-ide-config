@@ -69,12 +69,20 @@ eval "$(direnv hook zsh)"
 # ALIASES & FUNCTIONS
 # ------------------------------------------------------------------------------
 # General
-alias ls='lsd'
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -l --icons --group-directories-first'
+alias la='eza -la --icons --group-directories-first'
 alias ..="cd .."
 alias ...="cd ../.."
 alias vim='nvim'
 alias vi='nvim'
 alias lg='lazygit'
+
+# Zellij
+alias zl="zellij --layout dev-setup" # запуск с кастомным layout
+alias za="zellij attach"             # подключение к последней сессии
+alias zs="zellij list-sessions"      # список сессий
+alias zk="zellij kill-all-sessions"  # убить все сессии
 
 # System specific (Arch Linux)
 alias update="yay -Syu"

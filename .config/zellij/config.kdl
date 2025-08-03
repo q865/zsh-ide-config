@@ -1,0 +1,90 @@
+// .config/zellij/config.kdl
+//
+// Единая, минималистичная конфигурация для Vim-подобного окружения.
+//
+
+// -----------------------------------------------------------------------------
+// Глобальные настройки
+// -----------------------------------------------------------------------------
+
+// Тема, соответствующая Kitty и Neovim
+theme "catppuccin-mocha"
+
+// Упрощенный интерфейс без лишних разделителей
+simplified_ui true
+
+// Отключаем мышь, чтобы использовать нативное выделение текста в терминале
+mouse_mode false
+copy_on_select false
+
+// Увеличиваем буфер прокрутки
+scroll_buffer_size 10000
+
+// Не показывать советы при запуске
+show_startup_tips false
+
+// -----------------------------------------------------------------------------
+// Горячие клавиши (Vim-стиль)
+// -----------------------------------------------------------------------------
+
+keybinds {
+    // Мы не очищаем стандартные привязки (clear-defaults=true),
+    // а переопределяем только то, что нам нужно, чтобы сохранить полезные,
+    // но не конфликтующие функции.
+
+    // Переключение в "заблокированный" режим (почти не используется)
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+    }
+
+    // Основной режим Normal
+    normal {
+        // Навигация по панелям
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+
+        // Управление панелями
+        bind "Alt n" { NewPane; }
+        bind "Alt w" { CloseFocus; }
+        bind "Alt e" { ToggleFocusFullscreen; }
+        bind "Alt f" { ToggleFloatingPanes; }
+
+        // Управление вкладками
+        bind "Alt t" { NewTab; }
+        bind "Alt q" { CloseTab; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+
+        // Вход в другие режимы
+        bind "Alt s" { SwitchToMode "Scroll"; }
+        bind "Alt r" { SwitchToMode "Resize"; }
+    }
+
+    // Режим прокрутки
+    scroll {
+        bind "j" "ScrollDown"
+        bind "k" "ScrollUp"
+        bind "Ctrl d" "HalfPageScrollDown"
+        bind "Ctrl u" "HalfPageScrollUp"
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "q" { SwitchToMode "Normal"; }
+        bind "Esc" { SwitchToMode "Normal"; }
+    }
+
+    // Режим изменения размера
+    resize {
+        bind "h" { Resize "Increase Left"; }
+        bind "j" { Resize "Increase Down"; }
+        bind "k" { Resize "Increase Up"; }
+        bind "l" { Resize "Increase Right"; }
+        bind "Shift H" { Resize "Decrease Left"; }
+        bind "Shift J" { Resize "Decrease Down"; }
+        bind "Shift K" { Resize "Decrease Up"; }
+        bind "Shift L" { Resize "Decrease Right"; }
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "q" { SwitchToMode "Normal"; }
+        bind "Esc" { SwitchToMode "Normal"; }
+    }
+}

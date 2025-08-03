@@ -184,6 +184,11 @@ format = '\[[$time]($style)\]'
 [username]
 format = '\[[$user]($style)\]'
 
+[vi_cmd_mode]
+format = '\[[ NORMAL]($style)\]'
+style = 'bold green'
+
+
 [vagrant]
 format = '\[[$symbol($version)]($style)\]'
 

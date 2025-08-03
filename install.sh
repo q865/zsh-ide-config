@@ -40,12 +40,13 @@ PACKAGES=(
     fzf
     zoxide
     bat
-    lsd
+    eza # Используем eza вместо lsd
     neovim
     lazygit
     direnv
     zellij
     lf
+    kitty # Добавляем терминал Kitty
 )
 yay -S --needed --noconfirm "${PACKAGES[@]}"
 
@@ -104,11 +105,38 @@ backup_and_link() {
 
 backup_and_link "$CONFIG_DIR/.zshrc" "$HOME/.zshrc"
 backup_and_link "$CONFIG_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
-backup_and_link "$CONFIG_DIR/.config/zellij.kdl" "$HOME/.config/zellij/config.kdl"
+backup_and_link "$CONFIG_DIR/.config/zellij/config.kdl" "$HOME/.config/zellij/config.kdl"
 backup_and_link "$CONFIG_DIR/.config/lf/lfrc" "$HOME/.config/lf/lfrc"
 backup_and_link "$CONFIG_DIR/.config/lf/pv.sh" "$HOME/.config/lf/pv.sh"
 
-# 6. Создание файла для секретов
+# 6. Настройка Kitty и Zellij Layouts
+msg "Настройка терминала Kitty и окружения Zellij..."
+mkdir -p "$HOME/.config/kitty"
+mkdir -p "$HOME/.config/zellij/layouts"
+
+msg "Загрузка темы Catppuccin Mocha для Kitty..."
+curl -s -o "$HOME/.config/kitty/catppuccin-mocha.conf" https://raw.githubusercontent.com/catppuccin/kitty/main/mocha.conf
+
+msg "Создание конфигурационного файла kitty.conf..."
+cat <<EOF > "$HOME/.config/kitty/kitty.conf"
+# Включаем тему Catppuccin Mocha
+@include "catppuccin-mocha.conf"
+
+# Устанавливаем шрифт Nerd Font для иконок
+# ВАЖНО: Убедитесь, что "FiraCode Nerd Font Mono" установлен!
+font_family      FiraCode Nerd Font Mono
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+
+# Добавляем отступы для чистого вида
+window_padding_width 10
+EOF
+
+# Создаем символическую ссылку на layout для Zellij
+backup_and_link "$CONFIG_DIR/.config/zellij/layouts/dev-setup.kdl" "$HOME/.config/zellij/layouts/dev-setup.kdl"
+
+# 7. Создание файла для секретов
 if [ ! -f "$HOME/.zsh_secrets" ]; then
     msg "Создание файла для секретов ~/.zsh_secrets"
     touch "$HOME/.zsh_secrets"
@@ -116,7 +144,7 @@ if [ ! -f "$HOME/.zsh_secrets" ]; then
     echo "# export GEMINI_API_KEY='...'" >> "$HOME/.zsh_secrets"
 fi
 
-# 7. Смена оболочки по умолчанию на Zsh
+# 8. Смена оболочки по умолчанию на Zsh
 if [ "$SHELL" != "$(which zsh)" ]; then
     msg "Попытка сменить оболочку по умолчанию на Zsh. Может потребоваться пароль."
     chsh -s "$(which zsh)"

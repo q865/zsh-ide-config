@@ -1,0 +1,21 @@
+// .config/zellij/layouts/dev-setup.kdl
+//
+// Стандартный layout для разработки: редактор слева, терминал справа.
+//
+
+layout {
+    pane_template name="editor" {
+        command "nvim"
+        size "70%"
+        focus true // Фокус на редакторе при старте
+    }
+    pane_template name="terminal" {
+        // Занимает оставшееся место
+    }
+
+    // Основная структура: вертикальный сплит
+    pane split_direction="vertical" {
+        pane name="editor"
+        pane name="terminal"
+    }
+}
