@@ -35,6 +35,12 @@ map <c-d> half-down
 map gg top
 map G bottom
 
+# Быстрые переходы
+map gh cd ~
+map gr cd /
+map gc cd ~/.config
+map gp cd /home/panch/dev_projects
+
 # Создание файлов и директорий
 map i $read -p "create file: " f; touch $f
 map o $read -p "create dir: " d; mkdir $d
