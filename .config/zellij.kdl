@@ -1,23 +1,174 @@
-// Use the Catppuccin theme to match Kitty
-theme "catppuccin-mocha"
+// ~/.config/zellij/config.kdl
+// Добро пожаловать в обновлённую конфигурацию Zellij!
+//
+// Эта конфигурация включает плагины, улучшенные горячие клавиши и раскладки
+// для более продуктивной работы.
+//
+// Для установки плагинов Zellij должен быть собран с помощью `cargo`
+// или установлен через пакетный менеджер, который это поддерживает.
 
-// A cleaner UI without extra pane separators
-simplified_ui true
+// ------------------
+//      Плагины
+// ------------------
+// Плагины расширяют функциональность Zellij.
+// Они загружаются из интернета при первом запуске.
+plugins {
+    // Удобный переключатель сессий (проектов)
+    tab-bar { path "tab-bar"; }
+    status-bar { path "status-bar"; }
+    strider { path "strider"; }
+    compact-bar { path "compact-bar"; }
+    session-manager { path "session-manager"; }
+}
 
-// Default layout for sessions started without a specific layout
-default_layout "compact"
 
-// Disable Zellij's mouse mode to allow native terminal text selection
-mouse_mode false
-copy_on_select false
+// ------------------
+//      Опции
+// ------------------
+// Основные настройки поведения и внешнего вида Zellij.
+options {
+    // Тема Catppuccin Mocha. Убедитесь, что она установлена или является встроенной.
+    theme "catppuccin-mocha"
+    // Упрощённый интерфейс без лишних разделителей между панелями.
+    simplified_ui true
+    // Раскладка по умолчанию при запуске `zellij` без аргументов.
+    // Мы используем специальную раскладку для плагина sessionizer.
+    default_layout "session-manager"
+    // Режим мыши для скроллинга и выбора панелей.
+    mouse_mode true
+    // Автоматически копировать выделенный текст в буфер Zellij.
+    copy_on_select true
+    // Использовать системный буфер обмена ("system") для копирования.
+    copy_clipboard "system"
+    // Увеличиваем размер буфера прокрутки для длинных выводов.
+    scroll_buffer_size 10000
+}
 
-// Basic vim-like navigation
+// ------------------
+//    Раскладки (Layouts)
+// ------------------
+// Здесь мы определяем, как будут выглядеть наши сессии при запуске.
+layouts {
+    // Раскладка для плагина session-manager
+    session-manager {
+        pane_template name="session-manager" {
+            plugin "session-manager"
+        }
+    }
+    // Стандартная раскладка с одной вкладкой и одной панелью
+    default {
+        tab {
+            pane
+        }
+    }
+}
+
+
+// ------------------
+//    Сочетания клавиш
+// ------------------
+// Мы сохранили ваши привычные клавиши и добавили новые.
+// `unbind "Ctrl t"` используется для освобождения стандартных биндов
+// перед назначением новых действий.
 keybinds {
-    normal {
-        // Use Alt + hjkl to move between panes
-        bind "Alt h" { MoveFocus "Left"; }
-        bind "Alt j" { MoveFocus "Down"; }
-        bind "Alt k" { MoveFocus "Up"; }
-        bind "Alt l" { MoveFocus "Right"; }
+    unbind "Ctrl t"
+    // --- Управление сессиями (через плагин) ---
+    bind "Ctrl s" {
+        launch_or_focus_plugin "session-manager" {
+            floating true
+        }
+    }
+
+    // --- Управление панелями ---
+    // Перемещение между панелями (как у вас и было)
+    bind "Alt h" { MoveFocus "Left"; }
+    bind "Alt j" { MoveFocus "Down"; }
+    bind "Alt k" { MoveFocus "Up"; }
+    bind "Alt l" { MoveFocus "Right"; }
+
+    // Создание новой панели
+    bind "Alt n" { NewPane; }
+    // Закрытие активной панели
+    bind "Alt w" { CloseFocus; }
+
+    // Переименование панели для лучшей организации
+    bind "Alt r" {
+        SwitchToMode "RenamePane"
+        pane_input_prompt "Rename Pane: "
+    }
+
+
+    // --- Управление вкладками ---
+    // Создание новой вкладки
+    bind "Alt t" { NewTab; }
+    // Закрытие активной вкладки
+    bind "Alt q" { CloseTab; }
+    // Переключение на предыдущую вкладку
+    bind "Alt [" { GoToPreviousTab; }
+    // Переключение на следующую вкладку
+    bind "Alt ]" { GoToNextTab; }
+
+    // Переименование вкладки
+    bind "Alt T" {
+        SwitchToMode "RenameTab"
+        tab_input_prompt "Rename Tab: "
+    }
+
+
+    // --- Другие полезные действия ---
+    // Развернуть панель на весь экран
+    bind "Alt e" { ToggleFocusFullscreen; }
+    // Сделать панель "плавающей"
+    bind "Alt f" { ToggleFloatingPanes; }
+
+    // --- Режимы ---
+    // Вход в режим изменения размера
+    bind "Alt R" { SwitchToMode "Resize"; }
+    // Вход в режим прокрутки
+    bind "Alt S" { SwitchToMode "Scroll"; }
+}
+
+// --- Режимы ---
+// Определяем клавиши для каждого режима
+// (изменение размера, прокрутка, переименование и т.д.)
+mode_keybinds {
+    // Режим изменения размера
+    resize "normal" {
+        bind "h" "Left" { Resize "Increase Left"; }
+        bind "j" "Down" { Resize "Increase Down"; }
+        bind "k" "Up" { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+        bind "Enter" "Esc" { SwitchToMode "Normal"; }
+    }
+
+    // Режим прокрутки
+    scroll "normal" {
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "PageDown" { PageScrollDown; }
+        bind "PageUp" { PageScrollUp; }
+        bind "Enter" "Esc" { SwitchToMode "Normal"; }
+    }
+
+    // Режим переименования вкладки
+    renametab "normal" {
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "Esc" {
+            UndoRenameTab
+            SwitchToMode "Normal"
+        }
+    }
+
+    // Режим переименования панели
+    renamepane "normal" {
+        bind "Enter" { SwitchToMode "Normal"; }
+        bind "Esc" {
+            UndoRenamePane
+            SwitchToMode "Normal"
+        }
     }
 }

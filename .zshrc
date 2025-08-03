@@ -102,10 +102,6 @@ lf () {
 # ------------------------------------------------------------------------------
 # Automatically start Zellij on shell startup if not already in a session.
 # It attaches to a session named "main" or creates it if it doesn't exist.
-if [[ -z "$ZELLIJ" && -z "$TMUX" && "$TERM" != "linux" && -n "$PS1" ]]; then
-  zellij attach main --create
-fi
-
 # ------------------------------------------------------------------------------
 # FINALIZATION
 # ------------------------------------------------------------------------------
